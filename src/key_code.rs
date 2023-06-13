@@ -320,4 +320,14 @@ impl KbHidReport {
             *c = kc as u8;
         }
     }
+
+    /// Whether the report is null
+    pub fn is_null(&self) -> bool {
+        for kc in self.0 {
+            if kc != 0u8 {
+                return false;
+            }
+        }
+        true
+    }
 }
