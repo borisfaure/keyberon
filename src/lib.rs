@@ -15,6 +15,9 @@
 #![no_std]
 #![deny(missing_docs)]
 
+#[cfg(feature = "defmt")]
+use defmt_rtt as _;
+
 use usb_device::bus::UsbBusAllocator;
 use usb_device::prelude::*;
 
@@ -44,6 +47,8 @@ where
     B: usb_device::bus::UsbBus,
     L: keyboard::Leds,
 {
+    #[cfg(feature = "defmt")]
+    defmt::info!("new class");
     hid::HidClass::new(keyboard::Keyboard::new(leds), bus)
 }
 

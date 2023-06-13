@@ -11,6 +11,10 @@ categories = ["embedded", "no-std"]
 license = "MIT"
 readme = "README.md"
 
+[features]
+defmt = ["dep:defmt", "dep:defmt-rtt"]
+default = ["defmt"]
+
 [dependencies]
 keyberon-macros = { version = "0.1.0", path = "./keyberon-macros" }
 either = { version = "1.6", default-features = false }
@@ -19,3 +23,5 @@ embedded-hal = { version = "0.2", features = ["unproven"] }
 usb-device = "0.2"
 heapless = "0.7"
 arraydeque = { version = "0.4.5", default-features = false }
+defmt = { version = "0.3", optional = true }
+defmt-rtt = { version = "0.4", optional = true }
