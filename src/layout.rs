@@ -46,6 +46,9 @@
 /// ```
 pub use keyberon_macros::*;
 
+#[cfg(test)]
+extern crate log;
+
 use crate::action::{Action, HoldTapAction, HoldTapConfig};
 use crate::key_code::KeyCode;
 use arraydeque::ArrayDeque;
@@ -433,6 +436,8 @@ impl<
     }
     /// Register a key event.
     pub fn event(&mut self, event: Event) {
+        #[cfg(test)]
+        log::info!("event: {:?}", event);
         if let Some(stacked) = self.stacked.push_back(event.into()) {
             self.waiting_into_hold();
             self.unstack(stacked);
@@ -463,6 +468,8 @@ impl<
         coord: (u8, u8),
         delay: u16,
     ) -> CustomEvent<T> {
+        #[cfg(test)]
+        log::info!("do_action{:?}", action);
         assert!(self.waiting.is_none());
         use Action::*;
         match action {
